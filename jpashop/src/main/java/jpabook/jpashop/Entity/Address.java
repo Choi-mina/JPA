@@ -1,9 +1,10 @@
 package jpabook.jpashop.Entity;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import lombok.Getter;
 
-@Embedded
+@Embeddable
 @Getter
 public class Address {
 
