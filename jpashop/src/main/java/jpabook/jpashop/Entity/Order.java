@@ -5,6 +5,7 @@ import jpabook.jpashop.Enum.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Delivery delivery;  // 배송 정보
+
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문 상태 [ORDER, CANCEL]
