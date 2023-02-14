@@ -5,6 +5,7 @@ import jpabook.jpashop.Entity.Address;
 import jpabook.jpashop.Entity.Member;
 import jpabook.jpashop.Service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
 
@@ -28,6 +30,7 @@ public class MemberController {
     public String create(@Valid MemberForm form, BindingResult result) {
 
         if(result.hasErrors()) {
+            log.warn("Member name is empty");
             return "members/createMemberForm";
         }
 
@@ -37,7 +40,12 @@ public class MemberController {
         member.setName(form.getName());
         member.setAddress(address);
 
-        memberService.join(member);
+        try {
+            memberService.join(member);
+        } catch (Exception e) {
+            log.warn("Member duplicate validation");
+            return "redirect:/";
+        }
 
         return "redirect:/";
     }

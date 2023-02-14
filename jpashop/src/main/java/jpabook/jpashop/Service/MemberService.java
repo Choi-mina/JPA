@@ -18,7 +18,7 @@ public class MemberService {
 
     // 회원가입
     @Transactional(readOnly = false)
-    public Long join(Member member) {
+    public Long join(Member member) throws IllegalStateException {
 
         validateDuplicateMember(member);
 
